@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Ticket Tracker Application</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- Include Trumbowyg CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.24.0/ui/trumbowyg.min.css">
+
+	<style>
+		/* Custom CSS */
+		.navbar {
+			margin-bottom: 20px;
+		}
+
+		.create-ticket-heading {
+			background-color: #f8f9fa;
+			padding: 10px;
+			margin-bottom: 20px;
+		}
+
+		body {
+			padding-bottom: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		<!-- Brand -->
+		<a class="navbar-brand" href="#">Ticket Tracker Application</a>
+
+		<!-- Toggler/collapsibe Button -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a th:href="@{/tickets}" class="nav-link">Tickets</a>
+				</li>
+				<!-- Add New Ticket tab -->
+				<li class="nav-item">
+					<a th:href="@{/tickets/new}" class="nav-link">New Ticket</a>
+				</li>
+			</ul>
+
+		</div>
+	</nav>
+
+	<div class="container-fluid h-100">
+		<div class="row justify-content-center align-items-center h-100">
+			<div class="col-lg-6">
+				<div class="card">
+					<div class="card-body">
+						<div class="create-ticket-heading">
+							<h1 class="card-title text-center mb-0">Create Ticket</h1>
+						</div>
+						<form th:action="@{/tickets/new}" th:object="${ticket}" method="post">
+							<div class="form-group">
+								<label>Title</label>
+								<input type="text" class="form-control" th:field="*{title}"
+									placeholder="Enter ticket title" required />
+							</div>
+							<div class="form-group">
+								<label>Short Description</label>
+								<input type="text" class="form-control" th:field="*{description}"
+									placeholder="Enter ticket description" required />
+							</div>
+							<div class="form-group">
+								<label>Content</label>
+								<!-- Use Trumbowyg for rich text editing -->
+								<textarea itemtype="text" id="content" class="form-control" th:field="*{content}"
+									placeholder="Enter content"></textarea>
+							</div>
+							<button type="submit" class="btn btn-primary btn-block">Submit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Include jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<!-- Include Trumbowyg JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.24.0/trumbowyg.min.js"></script>
+
+	<!-- Initialize Trumbowyg -->
+	<script>
+		$(document).ready(function () {
+			$('#content').trumbowyg();
+		});
+	</script>
+</body>
+
+</html>
